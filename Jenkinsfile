@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Stage 3: List Files') {
             steps {
-                sh 'ls -la'
+                sh 'cat test.txt'
             }
         }
     }
