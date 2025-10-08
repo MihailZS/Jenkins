@@ -1,14 +1,19 @@
 pipeline {
     agent any
     stages {
-        stage('Clone Repository') {
+        stage('Stage 1: Greeting') {
             steps {
-                echo 'Cloning repository...'
+                echo 'Hello from Jenkins Pipeline!'
             }
         }
-        stage('Build') {
+        stage('Stage 2: Date and Time') {
             steps {
-                echo 'Building project...'
+                sh 'date'
+            }
+        }
+        stage('Stage 3: List Files') {
+            steps {
+                sh 'ls -la'
             }
         }
     }
