@@ -1,0 +1,36 @@
+pipeline {
+    agent none // Указываем, что по умолчанию пайплайн не привязан к какой-либо ноде
+    stages {
+        stage('Stage 1: Greeting') {
+            agent { label 'master' } // Выполняется на master-ноде
+            steps {
+                echo 'Hello from Jenkins Pipeline on Master Node!'
+                sleep 2
+            }
+        }
+        stage('Stage 2: Current Date and Time') {
+            agent { label 'agent1' } // Выполняется на agent1
+            steps {
+                sh 'date'
+                sleep 2
+            }
+        }
+        stage('Stage 3: List Files in Workspace') {
+            agent { label 'agent2' } // Выполняется на agent2
+            steps {
+                sh 'ls -la'
+                sh 'cat test.txt || echo "test.txt not found"'
+                sleep 2
+            }
+        }
+        stage('Stage 4: Environment Variables') {
+            agent { label 'master' } // Выполняется на master-ноде
+            steps {
+                echo "Current Build Number: ${env.BUILD_NUMBER}"
+                echo "Jenkins URL: ${env.JENKINS_URL}"
+                echo "Workspace Path: ${env.WORKSPACE}"
+                sleep 2
+            }
+        }
+    }
+}
